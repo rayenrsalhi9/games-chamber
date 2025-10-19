@@ -36,6 +36,8 @@ const Header = () => {
                     <form role="search" className="flex items-center">
                         <label htmlFor="search" className="sr-only">Search for games</label>
                         <input
+                            id="search"
+                            name="search"
                             type="text"
                             placeholder="Search..."
                             className="px-3 py-2 bg-black text-white placeholder-purple-400 border border-purple-800 rounded focus:outline-none focus:border-purple-600 font-mono text-sm w-40 focus:w-48 transition-all duration-200"
