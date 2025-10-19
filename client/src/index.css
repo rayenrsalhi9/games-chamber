@@ -1,0 +1,250 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Orbitron:wght@400;700;900&display=swap');
+@import "tailwindcss";
+@import "tw-animate-css";
+
+* {
+  font-family: 'Orbitron', monospace;
+}
+
+.font-pixel {
+  font-family: 'Press Start 2P', monospace;
+}
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+:root {
+  --radius: 0.625rem;
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+  --primary: oklch(0.205 0 0);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.205 0 0);
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.556 0 0);
+  --accent: oklch(0.97 0 0);
+  --accent-foreground: oklch(0.205 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.922 0 0);
+  --input: oklch(0.922 0 0);
+  --ring: oklch(0.708 0 0);
+  --chart-1: oklch(0.646 0.222 41.116);
+  --chart-2: oklch(0.6 0.118 184.704);
+  --chart-3: oklch(0.398 0.07 227.392);
+  --chart-4: oklch(0.828 0.189 84.429);
+  --chart-5: oklch(0.769 0.188 70.08);
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar-primary: oklch(0.205 0 0);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-ring: oklch(0.708 0 0);
+}
+
+/* Retro Gaming Color Palette */
+:root {
+  --retro-black: #0a0a0a;
+  --retro-purple: #8b5cf6;
+  --retro-purple-dark: #6d28d9;
+  --retro-purple-light: #a78bfa;
+  --retro-blue: #3b82f6;
+  --retro-blue-light: #60a5fa;
+  --retro-blue-dark: #2563eb;
+  --retro-neon-pink: #ec4899;
+  --retro-neon-cyan: #06b6d4;
+  --retro-neon-green: #10b981;
+  --retro-yellow: #f59e0b;
+  --retro-orange: #f97316;
+}
+
+/* Enhanced Dark Theme with Retro Colors */
+.dark {
+  --background: var(--retro-black);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.08 0.1 280);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.08 0.1 280);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: var(--retro-purple);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: var(--retro-blue-dark);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.15 0.15 280);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: var(--retro-neon-cyan);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: var(--retro-neon-pink);
+  --border: var(--retro-purple-dark);
+  --input: oklch(1 0 0 / 15%);
+  --ring: var(--retro-blue-light);
+  --chart-1: var(--retro-purple);
+  --chart-2: var(--retro-blue);
+  --chart-3: var(--retro-neon-green);
+  --chart-4: var(--retro-neon-cyan);
+  --chart-5: var(--retro-yellow);
+  --sidebar: oklch(0.08 0.1 280);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: var(--retro-purple);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: var(--retro-blue-dark);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: var(--retro-purple-dark);
+  --sidebar-ring: var(--retro-blue-light);
+}
+
+/* CRT Screen Effects */
+.crt-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.crt-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    rgba(18, 16, 16, 0) 50%,
+    rgba(0, 0, 0, 0.25) 50%
+  );
+  background-size: 100% 2px;
+  z-index: 1;
+  pointer-events: none;
+  animation: scanlines 8s linear infinite;
+}
+
+.crt-container::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(18, 16, 16, 0.1);
+  opacity: 0;
+  z-index: 2;
+  pointer-events: none;
+  animation: flicker 0.15s infinite;
+}
+
+@keyframes scanlines {
+  0% { background-position: 0 0; }
+  100% { background-position: 0 10px; }
+}
+
+@keyframes flicker {
+  0% { opacity: 0.27861; }
+  5% { opacity: 0.34769; }
+  10% { opacity: 0.23604; }
+  15% { opacity: 0.90626; }
+  20% { opacity: 0.18128; }
+  25% { opacity: 0.83891; }
+  30% { opacity: 0.65583; }
+  35% { opacity: 0.67807; }
+  40% { opacity: 0.26559; }
+  45% { opacity: 0.84693; }
+  50% { opacity: 0.96019; }
+  55% { opacity: 0.08594; }
+  60% { opacity: 0.20313; }
+  65% { opacity: 0.71988; }
+  70% { opacity: 0.53455; }
+  75% { opacity: 0.37288; }
+  80% { opacity: 0.71428; }
+  85% { opacity: 0.70419; }
+  90% { opacity: 0.7003; }
+  95% { opacity: 0.36108; }
+  100% { opacity: 0.24387; }
+}
+
+/* Simplified Retro Gaming Elements */
+.retro-text {
+  color: var(--retro-purple);
+  font-weight: bold;
+}
+
+.retro-border {
+  border: 2px solid var(--retro-purple);
+  border-radius: 4px;
+}
+
+.retro-button {
+  background: var(--retro-black);
+  color: var(--retro-purple);
+  border: 2px solid var(--retro-purple);
+  padding: 8px 16px;
+  border-radius: 4px;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+  font-family: 'Orbitron', monospace;
+  font-weight: bold;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.retro-button:hover {
+  background: var(--retro-purple);
+  color: var(--retro-black);
+  border-color: var(--retro-purple);
+}
+
+/* Retro Grid Background */
+.retro-grid {
+  background-image: 
+    linear-gradient(rgba(139, 92, 246, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(139, 92, 246, 0.1) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
