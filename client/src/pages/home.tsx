@@ -1,11 +1,14 @@
 import { useGenres } from '@/hooks/useGenres'
+import { useProducts } from '@/hooks/useProducts'
 import icon from '/icon.png'
 import Header from '@/components/header'
 import Footer from '@/components/footer'
+import ProductCard from '@/components/product'
 
 const Home = () => {
 
   const genres = useGenres()
+  const products = useProducts()
 
   return (
     <div className="min-h-screen bg-black text-white">
@@ -43,6 +46,27 @@ const Home = () => {
             genres.map(genre => <option key={genre} value={genre}>{genre}</option>)
           }
         </select>
+      </section>
+
+      {/* Products Section */}
+      <section className="px-6 py-10">
+        <div className="max-w-7xl mx-auto">
+          <h2 className="text-3xl font-bold text-center mb-8 font-pixel text-purple-300">
+            RETRO GAMES COLLECTION
+          </h2>
+          
+          {products.length === 0 ? (
+            <div className="text-center py-20">
+              <p className="text-purple-400 font-mono text-lg">No products available</p>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {products.map((product) => (
+                <ProductCard key={product.id} {...product}/>
+              ))}
+            </div>
+          )}
+        </div>
       </section>
 
       <Footer />
