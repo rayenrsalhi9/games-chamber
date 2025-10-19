@@ -1,8 +1,12 @@
+import { useGenres } from '@/hooks/useGenres'
 import icon from '/icon.png'
 import Header from '@/components/header'
 import Footer from '@/components/footer'
 
 const Home = () => {
+
+  const genres = useGenres()
+
   return (
     <div className="min-h-screen bg-black text-white">
 
@@ -35,10 +39,9 @@ const Home = () => {
           className="px-3 py-2 bg-black text-white border border-purple-800 rounded focus:outline-none focus:border-purple-600 font-mono text-sm"
         >
           <option value="">All Genres</option>
-          <option value="action">Action</option>
-          <option value="adventure">Adventure</option>
-          <option value="strategy">Strategy</option>
-          <option value="puzzle">Puzzle</option>
+          {
+            genres.map(genre => <option key={genre} value={genre}>{genre}</option>)
+          }
         </select>
       </section>
 
