@@ -6,7 +6,7 @@ export const useGenres = () => {
     useEffect(() => {
         fetch('/api/products/genres')
             .then(res => res.json())
-            .then(genres => setGenres(genres))
+            .then(data => setGenres(data.data))
     }, [])
 
     return genres

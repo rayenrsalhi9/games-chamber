@@ -1,24 +1,25 @@
 import {connectDB} from '../sql/connect-db.js'
 
-const getGenres = async() => {
+const getGenres = async(req, res) => {
     try {
         const db = await connectDB()
-        const genres = await db.all(`select distinct genre from products`)
-        return genres.map(e => e.genre)
+        const genresRows = await db.all(`select distinct genre from products`)
+        const genres = genresRows.map(e => e.genre)
+        res.json({data: genres, error: null})
     } catch (error) {
         console.log(error)
-        return {data: null, error: error.message}
+        res.json({data: null, error: error.message})
     }
 }
 
-const getProducts = async() => {
+const getProducts = async(req, res) => {
     try {
         const db = await connectDB()
         const products = await db.all('select * from products')
-        return {data: products, error: null}
+        res.json({data: products, error: null})
     } catch (error) {
         console.log(error)
-        return {data: null, error: error.message}
+        res.json({data: null, error: error.message})
     } finally {
         db.close()
     }
