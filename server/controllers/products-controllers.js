@@ -1,6 +1,6 @@
 import {connectDB} from '../sql/connect-db.js'
 
-const getGenres = async(req, res) => {
+const getGenres = async(_, res) => {
     try {
         const db = await connectDB()
         const genresRows = await db.all(`select distinct genre from products`)
@@ -17,15 +17,15 @@ const getProducts = async(req, res) => {
     const {genre, search} = req.query
     
     const params = genre && search 
-    ? [`${genre}`, `%${search}%`] 
-    : genre ? [`${genre}`] 
+    ? [`%${genre}%`, `%${search}%`] 
+    : genre ? [`%${genre}%`] 
     : search ? [`%${search}%`] 
     : []
 
     const query = genre && search
-        ? `select * from products where genre = ? and title like ?` 
+        ? `select * from products where genre like ? and title like ?` 
         : genre 
-        ? `select * from products where genre = ?` 
+        ? `select * from products where genre like ?` 
         : search 
         ? `select * from products where title like ?`
         : 'select * from products'

@@ -1,15 +1,11 @@
 import { Link } from "react-router-dom"
 
-interface HeaderProps {
-  search: string
-  setSelectedSearch: (search: string) => void
+type HeaderProps = {
+    search: string
+    handleSearchChange: (e: React.ChangeEvent<HTMLInputElement>) => void
 }
 
-const Header = ({ search, setSelectedSearch }: HeaderProps) => {
-
-    const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setSelectedSearch(e.target.value)
-    }
+const Header = ({ search, handleSearchChange }: HeaderProps) => {
 
     return(
         <header className="w-full bg-black border-b border-purple-800">
@@ -50,7 +46,7 @@ const Header = ({ search, setSelectedSearch }: HeaderProps) => {
                             name="search"
                             type="text"
                             value={search}
-                            onChange={handleSearch}
+                            onChange={handleSearchChange}
                             placeholder="Search..."
                             className="px-3 py-2 bg-black text-white placeholder-purple-400 border border-purple-800 rounded focus:outline-none focus:border-purple-600 font-mono text-sm w-40 focus:w-48 transition-all duration-200"
                         />

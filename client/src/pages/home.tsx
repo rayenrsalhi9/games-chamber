@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useSearchParams } from 'react-router-dom'
 import { useGenres } from '@/hooks/useGenres'
 import { useProducts } from '@/hooks/useProducts'
 import icon from '/icon.png'
@@ -8,16 +8,28 @@ import ProductCard from '@/components/product'
 
 const Home = () => {
 
-  const [selectedGenre, setSelectedGenre] = useState('')
-  const [selectedSearch, setSelectedSearch] = useState('')
+  const [searchParams, setSearchParams] = useSearchParams()
+  const genre = searchParams.get('genre') || ''
+  const search = searchParams.get('search') || ''
+
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchParams({genre,search:e.target.value})
+  }
+
+  const handleGenreChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setSearchParams({genre:e.target.value,search})
+  }
 
   const genres = useGenres()
-  const {products} = useProducts(selectedGenre, selectedSearch)
+  const {products} = useProducts(genre, search)
 
   return (
     <div className="min-h-screen bg-black text-white">
 
-      <Header search={selectedSearch} setSelectedSearch={setSelectedSearch} />
+      <Header 
+        search={search} 
+        handleSearchChange={handleSearchChange} 
+      />
       
       <main className="flex items-center justify-center gap-10 pt-20 pb-10 px-6">
         
@@ -43,12 +55,12 @@ const Home = () => {
         </label>
         <select
           id="genre"
-          onChange={e => setSelectedGenre(e.target.value)}
+          onChange={handleGenreChange}
           className="px-3 py-2 bg-black text-white border border-purple-800 rounded focus:outline-none focus:border-purple-600 font-mono text-sm"
         >
           <option value="">All Genres</option>
           {
-            genres.map(genre => <option key={genre} value={genre}>{genre}</option>)
+            genres.map(g => <option key={g} value={g} selected={g.toLowerCase() === genre.toLowerCase()}>{g}</option>)
           }
         </select>
       </section>
