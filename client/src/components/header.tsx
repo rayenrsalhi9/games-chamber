@@ -1,14 +1,14 @@
-import { useState } from "react"
-import {useProducts} from "../hooks/useProducts"
 import { Link } from "react-router-dom"
 
-const Header = () => {
+interface HeaderProps {
+  search: string
+  setSelectedSearch: (search: string) => void
+}
 
-    const [search, setSearch] = useState('')
-    useProducts('', search)
+const Header = ({ search, setSelectedSearch }: HeaderProps) => {
 
     const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setSearch(e.target.value)
+        setSelectedSearch(e.target.value)
     }
 
     return(

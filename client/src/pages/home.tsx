@@ -9,14 +9,15 @@ import ProductCard from '@/components/product'
 const Home = () => {
 
   const [selectedGenre, setSelectedGenre] = useState('')
+  const [selectedSearch, setSelectedSearch] = useState('')
 
   const genres = useGenres()
-  const {products} = useProducts(selectedGenre)
+  const {products} = useProducts(selectedGenre, selectedSearch)
 
   return (
     <div className="min-h-screen bg-black text-white">
 
-      <Header />
+      <Header search={selectedSearch} setSelectedSearch={setSelectedSearch} />
       
       <main className="flex items-center justify-center gap-10 pt-20 pb-10 px-6">
         
