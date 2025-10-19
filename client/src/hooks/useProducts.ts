@@ -11,10 +11,16 @@ type Product = {
     image: string
 }
 
-export const useProducts = (genre: string) => {
+export const useProducts = (genre='', search='') => {
     const [products, setProducts] = useState<Product[]>([])
 
-    const url = genre ? `/api/products?genre=${genre}` : '/api/products'
+    const url = genre && search 
+        ? `/api/products?genre=${genre}&search=${search}`
+        : genre 
+        ? `/api/products?genre=${genre}`
+        : search 
+        ? `/api/products?search=${search}`
+        : '/api/products'
 
     useEffect(() => {
         fetch(url)

@@ -14,11 +14,20 @@ const getGenres = async(req, res) => {
 
 const getProducts = async(req, res) => {
 
-    const {genre} = req.query
+    const {genre, search} = req.query
     
-    const params = genre ? [`${genre}`] : []
-    const query = genre 
+    const params = genre && search 
+    ? [`${genre}`, `%${search}%`] 
+    : genre ? [`${genre}`] 
+    : search ? [`%${search}%`] 
+    : []
+
+    const query = genre && search
+        ? `select * from products where genre = ? and title like ?` 
+        : genre 
         ? `select * from products where genre = ?` 
+        : search 
+        ? `select * from products where title like ?`
         : 'select * from products'
    
     try {

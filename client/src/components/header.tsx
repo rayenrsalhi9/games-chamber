@@ -1,6 +1,16 @@
+import { useState } from "react"
+import {useProducts} from "../hooks/useProducts"
 import { Link } from "react-router-dom"
 
 const Header = () => {
+
+    const [search, setSearch] = useState('')
+    useProducts('', search)
+
+    const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setSearch(e.target.value)
+    }
+
     return(
         <header className="w-full bg-black border-b border-purple-800">
             <div className="flex justify-between items-center px-6 py-4">
@@ -39,6 +49,8 @@ const Header = () => {
                             id="search"
                             name="search"
                             type="text"
+                            value={search}
+                            onChange={handleSearch}
                             placeholder="Search..."
                             className="px-3 py-2 bg-black text-white placeholder-purple-400 border border-purple-800 rounded focus:outline-none focus:border-purple-600 font-mono text-sm w-40 focus:w-48 transition-all duration-200"
                         />
