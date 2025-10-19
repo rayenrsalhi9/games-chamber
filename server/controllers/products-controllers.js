@@ -9,6 +9,8 @@ const getGenres = async(req, res) => {
     } catch (error) {
         console.log(error)
         res.json({data: null, error: error.message})
+    } finally {
+        db.close()
     }
 }
 
