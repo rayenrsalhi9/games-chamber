@@ -1,7 +1,12 @@
 import {connectDB} from '../sql/connect-db.js'
 
 const getGenres = async() => {
-    console.log('Genres will be fetched here')
+    
+    const db = await connectDB()
+
+    const genres = await db.all(`select distinct genre from products`)
+    return genres.map(e => e.genre)
+
 }
 
 const getProducts = async() => {
