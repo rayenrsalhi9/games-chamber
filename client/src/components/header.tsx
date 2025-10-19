@@ -18,7 +18,7 @@ const Header = () => {
                 </div>
 
                 {/* Navigation */}
-                <nav className="flex items-center space-x-4">
+                <nav className="flex items-center space-x-4" aria-label="Main navigation">
                     <Link 
                         to="cart" 
                         className="retro-button px-4 py-2 text-sm"
@@ -33,11 +33,14 @@ const Header = () => {
                     </Link>
                     
                     {/* Search Bar */}
-                    <input
-                        type="text"
-                        placeholder="Search..."
-                        className="px-3 py-2 bg-black text-white placeholder-purple-400 border border-purple-800 rounded focus:outline-none focus:border-purple-600 font-mono text-sm w-40 focus:w-48 transition-all duration-200"
-                    />
+                    <form role="search" className="flex items-center">
+                        <label htmlFor="search" className="sr-only">Search for games</label>
+                        <input
+                            type="text"
+                            placeholder="Search..."
+                            className="px-3 py-2 bg-black text-white placeholder-purple-400 border border-purple-800 rounded focus:outline-none focus:border-purple-600 font-mono text-sm w-40 focus:w-48 transition-all duration-200"
+                        />
+                    </form>
                 </nav>
             </div>
         </header>
