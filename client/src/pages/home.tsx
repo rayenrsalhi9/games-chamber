@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { useGenres } from '@/hooks/useGenres'
 import { useProducts } from '@/hooks/useProducts'
 import icon from '/icon.png'
@@ -7,8 +8,10 @@ import ProductCard from '@/components/product'
 
 const Home = () => {
 
+  const [selectedGenre, setSelectedGenre] = useState('')
+
   const genres = useGenres()
-  const products = useProducts()
+  const {products} = useProducts(selectedGenre)
 
   return (
     <div className="min-h-screen bg-black text-white">
@@ -39,6 +42,7 @@ const Home = () => {
         </label>
         <select
           id="genre"
+          onChange={e => setSelectedGenre(e.target.value)}
           className="px-3 py-2 bg-black text-white border border-purple-800 rounded focus:outline-none focus:border-purple-600 font-mono text-sm"
         >
           <option value="">All Genres</option>

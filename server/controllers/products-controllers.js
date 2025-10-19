@@ -13,9 +13,17 @@ const getGenres = async(req, res) => {
 }
 
 const getProducts = async(req, res) => {
+
+    const {genre} = req.query
+    
+    const params = genre ? [`${genre}`] : []
+    const query = genre 
+        ? `select * from products where genre = ?` 
+        : 'select * from products'
+   
     try {
         const db = await connectDB()
-        const products = await db.all('select * from products')
+        const products = await db.all(query, params)
         res.json({data: products, error: null})
     } catch (error) {
         console.log(error)
