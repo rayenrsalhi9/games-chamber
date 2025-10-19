@@ -7,14 +7,15 @@ interface ProductProps {
   stock: number
   price: number
   genre: string
+  image: string
 }
 
-const ProductCard = ({ title, provider, year, stock, price, genre }: ProductProps) => {
+const ProductCard = ({ title, provider, year, stock, price, genre, image }: ProductProps) => {
   return (
     <div className="bg-black border-2 border-purple-800 rounded-lg shadow-lg shadow-purple-900/50 hover:shadow-purple-700/60 transition-all duration-300 hover:scale-105 overflow-hidden crt-container">
       <div className="relative">
         <img
-          src={placeholderImage}
+          src={image || placeholderImage}
           alt={title}
           className="w-full h-48 object-cover"
         />
