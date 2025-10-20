@@ -88,7 +88,7 @@ const ResponsiveNav = ({ search, handleSearchChange }: ResponsiveNavProps) => {
                 to={item.to}
                 className="retro-button px-4 py-2 text-sm desktop-nav-link transition-all duration-200"
               >
-                {item.label}
+                {item.to === '/cart' ? <ShoppingCart className="w-5 h-5" /> : item.label}
               </Link>
             ))}
             
