@@ -2,7 +2,7 @@ import { useSearchParams } from 'react-router-dom'
 import { useGenres } from '@/hooks/useGenres'
 import { useProducts } from '@/hooks/useProducts'
 import icon from '/icon.png'
-import Header from '@/components/header'
+import ResponsiveNav from '@/components/responsive-nav'
 import Footer from '@/components/footer'
 import ProductCard from '@/components/product'
 
@@ -26,7 +26,7 @@ const Home = () => {
   return (
     <div className="min-h-screen bg-black text-white">
 
-      <Header 
+      <ResponsiveNav 
         search={search} 
         handleSearchChange={handleSearchChange} 
       />

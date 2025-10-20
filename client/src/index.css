@@ -248,3 +248,89 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Responsive Navigation Enhancements */
+@media (max-width: 767px) {
+  .mobile-nav-transition {
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .mobile-nav-backdrop {
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+  }
+  
+  .mobile-nav-item {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .mobile-nav-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.2), transparent);
+    transition: left 0.5s;
+  }
+  
+  .mobile-nav-item:hover::before {
+    left: 100%;
+  }
+  
+  .mobile-search-focus:focus {
+    box-shadow: 0 0 0 2px var(--retro-purple), 0 0 20px rgba(139, 92, 246, 0.3);
+  }
+}
+
+/* Desktop Navigation Hover Effects */
+@media (min-width: 768px) {
+  .desktop-nav-link {
+    position: relative;
+    transition: all 0.3s ease;
+  }
+  
+  .desktop-nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--retro-purple);
+    transition: width 0.3s ease;
+  }
+  
+  .desktop-nav-link:hover::after {
+    width: 100%;
+  }
+  
+  .desktop-search-focus:focus {
+    box-shadow: 0 0 0 2px var(--retro-purple), 0 0 30px rgba(139, 92, 246, 0.4);
+  }
+}
+
+/* Smooth transitions for all interactive elements */
+* {
+  transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+}
+
+/* Custom scrollbar for sidebar */
+.sidebar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+  background: var(--retro-black);
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+  background: var(--retro-purple);
+  border-radius: 3px;
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover {
+  background: var(--retro-purple-light);
+}
