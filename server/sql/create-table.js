@@ -1,6 +1,6 @@
 import { connectDB } from "./connect-db.js";
 
-const createTable = async() => {
+const createProductsTable = async() => {
     const db = await connectDB()
     db.exec(`
         create table if not exists products(
@@ -18,4 +18,20 @@ const createTable = async() => {
     console.log('Products table created successfully.')
 }
 
-createTable()
+const createUsersTable = async() => {
+    const db = await connectDB()
+    db.exec(`
+        create table if not exists users(
+            id integer primary key autoincrement,
+            name text not null,
+            username text unique not null,
+            email text unique not null,
+            password text not null,
+            created_at datetime default current_timestamp
+        )
+    `)
+    await db.close()
+    console.log('Users table created successfully.')
+}
+
+createUsersTable()
