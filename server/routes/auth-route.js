@@ -3,5 +3,4 @@ import { loginUser, registerUser } from '../controllers/auth-controller.js'
 
 export const authRoute = express.Router()
 
-authRoute.get('/register', registerUser)
-authRoute.get('/login', loginUser)
+authRoute.post('/register', registerUser)
