@@ -1,4 +1,5 @@
 import validator from 'validator'
+import bcrypt from 'bcryptjs'
 import {connectDB} from '../sql/connect-db.js'
 
 export const loginUser = () => {
@@ -33,6 +34,9 @@ export const registerUser = async(req, res) => {
     }
 
     try {
+
+        const hashed = await bcrypt.hash(password, 10)
+
         const db = await connectDB()
 
         const doesUserExist = await db.get(`
@@ -49,7 +53,7 @@ export const registerUser = async(req, res) => {
         await db.run(`
             insert into users (name, username, email, password)
             values (?, ?, ?, ?)
-        `, [name, username, email, password])
+        `, [name, username, email, hashed])
 
         res.status(201)
             .json({message: 'User registered successfully'})
