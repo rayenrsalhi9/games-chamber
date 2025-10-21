@@ -10,7 +10,7 @@ const Register = () => {
       const username = formData.get('username') as string
       const password = formData.get('password') as string
       
-      await fetch('/api/auth/register', {
+      const response = await fetch('/api/auth/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -18,6 +18,13 @@ const Register = () => {
         body: JSON.stringify({ name, email, username, password }),
       })
 
+      const result = await response.json()
+      
+      if (!response.ok) {
+        return result.error || 'Failed to register user'
+      }
+      
+      console.log(result.data)
       return null
     }, 
     null
@@ -69,7 +76,7 @@ const Register = () => {
                 EMAIL ADDRESS
               </label>
               <input
-                type="email"
+                type="text"
                 id="email"
                 name="email"
                 required
