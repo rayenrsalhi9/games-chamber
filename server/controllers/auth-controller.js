@@ -34,27 +34,29 @@ export const registerUser = async(req, res) => {
 
     try {
         const db = await connectDB()
+
         const doesUserExist = await db.get(`
             select * from users
             where email = ?
             or username = ?
         `, [email, username])
-        console.log(doesUserExist)
+        
         if (doesUserExist) {
             return res.status(400)
                 .json({error: 'Email or username already exists'})
         }
+        
         await db.run(`
             insert into users (name, username, email, password)
             values (?, ?, ?, ?)
         `, [name, username, email, password])
 
-        console.log('user registered successfully')
+        res.status(201)
+            .json({message: 'User registered successfully'})
+
     } catch(err) {
         console.log(err)
         return res.status(500)
             .json({error: 'Internal server error'})
     }
-
-    res.json({data: {name, username, email, password}})
 }
