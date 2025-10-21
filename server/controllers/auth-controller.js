@@ -1,4 +1,5 @@
 import validator from 'validator'
+import {connectDB} from '../sql/connect-db.js'
 
 export const loginUser = () => {
     console.log('user sign in process will appear here')
@@ -29,6 +30,30 @@ export const registerUser = async(req, res) => {
     if(!isUsernameValid) {
         return res.status(400)
             .json({error: 'Username must be 1-20 characters, using letters, numbers, _ or -.'}) 
+    }
+
+    try {
+        const db = await connectDB()
+        const doesUserExist = await db.get(`
+            select * from users
+            where email = ?
+            or username = ?
+        `, [email, username])
+        console.log(doesUserExist)
+        if (doesUserExist) {
+            return res.status(400)
+                .json({error: 'Email or username already exists'})
+        }
+        await db.run(`
+            insert into users (name, username, email, password)
+            values (?, ?, ?, ?)
+        `, [name, username, email, password])
+
+        console.log('user registered successfully')
+    } catch(err) {
+        console.log(err)
+        return res.status(500)
+            .json({error: 'Internal server error'})
     }
 
     res.json({data: {name, username, email, password}})

@@ -1,7 +1,9 @@
 import { useActionState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 const Register = () => {
+
+  const navigate = useNavigate()
   
   const [error, handleRegister, isPending] = useActionState(
     async(_prevState: string | null, formData: FormData): Promise<string | null> => {
@@ -24,7 +26,7 @@ const Register = () => {
         return result.error || 'Failed to register user'
       }
       
-      console.log(result.data)
+      navigate('/')
       return null
     }, 
     null
