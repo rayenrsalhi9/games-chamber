@@ -34,9 +34,6 @@ export const registerUser = async(req, res) => {
     }
 
     try {
-
-        const hashed = await bcrypt.hash(password, 10)
-
         const db = await connectDB()
 
         const doesUserExist = await db.get(`
@@ -49,6 +46,8 @@ export const registerUser = async(req, res) => {
             return res.status(400)
                 .json({error: 'Email or username already exists'})
         }
+
+        const hashed = await bcrypt.hash(password, 10)
         
         await db.run(`
             insert into users (name, username, email, password)
