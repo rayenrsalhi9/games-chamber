@@ -334,3 +334,91 @@
 .sidebar::-webkit-scrollbar-thumb:hover {
   background: var(--retro-purple-light);
 }
+
+/* Enhanced User Section Styling */
+.user-status-card {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(5, 150, 105, 0.05) 100%);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  position: relative;
+  overflow: hidden;
+}
+
+.user-status-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(16, 185, 129, 0.1), transparent);
+  transition: left 0.8s ease;
+}
+
+.user-status-card:hover::before {
+  left: 100%;
+}
+
+.user-status-pulse {
+  animation: userPulse 2s ease-in-out infinite;
+}
+
+@keyframes userPulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.1);
+  }
+}
+
+.user-status-divider {
+  background: linear-gradient(to bottom, transparent, rgba(16, 185, 129, 0.4), transparent);
+  animation: dividerGlow 3s ease-in-out infinite;
+}
+
+@keyframes dividerGlow {
+  0%, 100% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* Retro Gaming User Avatar */
+.user-avatar-retro {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.user-avatar-retro::after {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 0deg,
+    transparent,
+    rgba(16, 185, 129, 0.6),
+    transparent,
+    rgba(16, 185, 129, 0.6),
+    transparent
+  );
+  animation: avatarRotate 4s linear infinite;
+  z-index: -1;
+}
+
+@keyframes avatarRotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

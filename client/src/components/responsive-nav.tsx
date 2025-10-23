@@ -112,13 +112,24 @@ const ResponsiveNav = ({ userName, search, handleSearchChange }: ResponsiveNavPr
               </div>
             </form>
 
-            {/* User Section */}
+            {/* User Section - Enhanced Design */}
             
             {
               userName ? (
-                <div className="flex items-center space-x-2">
-                  <User className="w-5 h-5 text-purple-400" />
-                  <span className="text-purple-300 font-mono text-sm">{userName}</span>
+                <div className="flex items-center space-x-3 user-status-card rounded-lg px-4 py-2 transition-all duration-300 group">
+                  <div className="relative user-avatar-retro">
+                    <User className="w-5 h-5 text-green-400 group-hover:text-green-300 transition-colors duration-200" />
+                    <div className="absolute -top-1 -right-1 w-2 h-2 bg-green-500 rounded-full user-status-pulse"></div>
+                  </div>
+                  <div className="flex flex-col">
+                    <span className="text-green-300 font-mono text-sm font-semibold tracking-wide group-hover:text-green-200 transition-colors duration-200">
+                      {userName}
+                    </span>
+                    <span className="text-green-500/70 font-mono text-xs group-hover:text-green-400/80 transition-colors duration-200">
+                      Player Online
+                    </span>
+                  </div>
+                  <div className="w-1 h-6 user-status-divider rounded-full"></div>
                 </div>
               ) : null
             }
@@ -161,6 +172,29 @@ const ResponsiveNav = ({ userName, search, handleSearchChange }: ResponsiveNavPr
             )}
           </button>
         </div>
+
+        {/* User Section - Enhanced Mobile Design */}
+        {
+          userName ? (
+            <div className="flex items-center space-x-3 px-4 pt-1 mb-4">
+              <div className="flex items-center space-x-3 user-status-card rounded-lg px-4 py-2 transition-all duration-300 group w-full">
+                <div className="relative user-avatar-retro">
+                  <User className="w-5 h-5 text-green-400 group-hover:text-green-300 transition-colors duration-200" />
+                  <div className="absolute -top-1 -right-1 w-2 h-2 bg-green-500 rounded-full user-status-pulse"></div>
+                </div>
+                <div className="flex flex-col flex-1">
+                  <span className="text-green-300 font-mono text-sm font-semibold tracking-wide group-hover:text-green-200 transition-colors duration-200">
+                    {userName}
+                  </span>
+                  <span className="text-green-500/70 font-mono text-xs group-hover:text-green-400/80 transition-colors duration-200">
+                    Player Online
+                  </span>
+                </div>
+                <div className="w-1 h-6 user-status-divider rounded-full"></div>
+              </div>
+            </div>
+          ) : null
+        }
 
         {/* Mobile Search Bar */}
         <div className="px-4 pb-3">
@@ -220,19 +254,21 @@ const ResponsiveNav = ({ userName, search, handleSearchChange }: ResponsiveNavPr
               const Icon = item.icon
               const isActive = location.pathname === item.to
               return (
-                <Link
-                  key={item.to}
-                  to={item.to}
-                  className={`flex items-center space-x-3 px-4 py-3 rounded-md font-mono text-sm transition-colors duration-200 mobile-nav-item ${
-                    isActive
-                      ? 'bg-purple-600 text-white'
-                      : 'text-purple-300 hover:bg-purple-800 hover:text-white'
-                  }`}
-                  onClick={() => setIsSidebarOpen(false)}
-                >
-                  <Icon className="w-5 h-5" />
-                  <span>{item.label}</span>
-                </Link>
+                item.show ? (
+                  <Link
+                    key={item.to}
+                    to={item.to}
+                    className={`flex items-center space-x-3 px-4 py-3 rounded-md font-mono text-sm transition-colors duration-200 mobile-nav-item ${
+                      isActive
+                        ? 'bg-purple-600 text-white'
+                        : 'text-purple-300 hover:bg-purple-800 hover:text-white'
+                    }`}
+                    onClick={() => setIsSidebarOpen(false)}
+                  >
+                    <Icon className="w-5 h-5" />
+                    <span>{item.label}</span>
+                  </Link>
+                ) : null
               )
             })}
           </nav>
