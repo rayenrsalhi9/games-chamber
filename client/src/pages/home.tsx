@@ -1,6 +1,7 @@
 import { useSearchParams } from 'react-router-dom'
 import { useGenres } from '@/hooks/useGenres'
 import { useProducts } from '@/hooks/useProducts'
+import { useMe } from '@/hooks/useMe'
 import icon from '/icon.png'
 import ResponsiveNav from '@/components/responsive-nav'
 import Footer from '@/components/footer'
@@ -22,11 +23,13 @@ const Home = () => {
 
   const genres = useGenres()
   const {products} = useProducts(genre, search)
+  const userName = useMe()
 
   return (
     <div className="min-h-screen bg-black text-white">
 
       <ResponsiveNav 
+        userName={userName}
         search={search} 
         handleSearchChange={handleSearchChange} 
       />

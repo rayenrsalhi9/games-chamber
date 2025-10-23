@@ -2,12 +2,13 @@ import { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { Menu, X, Gamepad2, ShoppingCart, User, Search } from 'lucide-react'
 
-interface ResponsiveNavProps {
+type ResponsiveNavProps = {
+  userName: string | ''
   search: string
   handleSearchChange: (e: React.ChangeEvent<HTMLInputElement>) => void
 }
 
-const ResponsiveNav = ({ search, handleSearchChange }: ResponsiveNavProps) => {
+const ResponsiveNav = ({ userName, search, handleSearchChange }: ResponsiveNavProps) => {
 
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
@@ -57,9 +58,9 @@ const ResponsiveNav = ({ search, handleSearchChange }: ResponsiveNavProps) => {
   }, [isSidebarOpen])
 
   const navItems = [
-    { to: '/', label: 'HOME', icon: Gamepad2 },
-    { to: '/cart', label: 'CART', icon: ShoppingCart },
-    { to: '/login', label: 'LOGIN', icon: User },
+    { to: '/', label: 'HOME', icon: Gamepad2, show: true },
+    { to: '/cart', label: 'CART', icon: ShoppingCart, show: true },
+    { to: '/login', label: 'LOGIN', icon: User, show: !userName },
   ]
 
   // Desktop Navigation
@@ -83,13 +84,15 @@ const ResponsiveNav = ({ search, handleSearchChange }: ResponsiveNavProps) => {
           {/* Navigation */}
           <nav className="flex items-center space-x-4" aria-label="Main navigation">
             {navItems.map((item) => (
-              <Link
-                key={item.to}
-                to={item.to}
-                className="retro-button px-4 py-2 text-sm desktop-nav-link transition-all duration-200"
-              >
-                {item.to === '/cart' ? <ShoppingCart className="w-5 h-5" /> : item.label}
-              </Link>
+              item.show ? (
+                <Link
+                  key={item.to}
+                  to={item.to}
+                  className="retro-button px-4 py-2 text-sm desktop-nav-link transition-all duration-200"
+                >
+                  {item.to === '/cart' ? <ShoppingCart className="w-5 h-5" /> : item.label}
+                </Link>
+              ) : null
             ))}
             
             {/* Search Bar */}
@@ -108,6 +111,18 @@ const ResponsiveNav = ({ search, handleSearchChange }: ResponsiveNavProps) => {
                 />
               </div>
             </form>
+
+            {/* User Section */}
+            
+            {
+              userName ? (
+                <div className="flex items-center space-x-2">
+                  <User className="w-5 h-5 text-purple-400" />
+                  <span className="text-purple-300 font-mono text-sm">{userName}</span>
+                </div>
+              ) : null
+            }
+            
           </nav>
         </div>
       </header>

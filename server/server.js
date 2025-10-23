@@ -1,10 +1,15 @@
 import express from 'express'
 import { productsRoute } from './routes/products-route.js'
 import { authRoute } from './routes/auth-route.js'
+import { meRoute } from './routes/me-route.js'
 import session from 'express-session'
+import dotenv from 'dotenv'
 
 import path from 'path'
 import { fileURLToPath } from 'url'
+
+// Load environment variables
+dotenv.config()
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
@@ -15,7 +20,7 @@ app.use(express.static(path.join(__dirname, '../client/dist')))
 
 app.use(express.json())
 app.use(session({
-  secret: import.meta.env.VITE_SESSION_SECRET,
+  secret: process.env.VITE_SESSION_SECRET,
   resave: false,
   saveUninitialized: false,
   cookie: {
@@ -26,6 +31,7 @@ app.use(session({
 }))
 
 app.use('/api/products', productsRoute)
+app.use('/api/auth/me', meRoute)
 app.use('/api/auth', authRoute)
 
 // Catch-all handler: send back React's index.html file for client-side routing
