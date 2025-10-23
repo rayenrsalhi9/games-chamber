@@ -49,10 +49,12 @@ export const registerUser = async(req, res) => {
 
         const hashed = await bcrypt.hash(password, 10)
         
-        await db.run(`
+        const result = await db.run(`
             insert into users (name, username, email, password)
             values (?, ?, ?, ?)
         `, [name, username, email, hashed])
+
+        req.session.userId = result.lastID
 
         res.status(201)
             .json({message: 'User registered successfully'})
