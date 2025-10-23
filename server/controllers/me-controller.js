@@ -3,7 +3,7 @@ import {connectDB} from '../sql/connect-db.js'
 export const getUserDetails = async (req, res) => {
 
     const userId = req.session.userId
-    if (!userId) return res.status(401).json({ isLoggedIn: false })
+    if (!userId) return res.json({ isLoggedIn: false })
 
     try {
 
