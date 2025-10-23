@@ -2,8 +2,53 @@ import validator from 'validator'
 import bcrypt from 'bcryptjs'
 import {connectDB} from '../sql/connect-db.js'
 
-export const loginUser = () => {
-    console.log('user sign in process will appear here')
+export const loginUser = async (req, res) => {
+    let {email, password} = req.body
+
+    if (!email || !password) {
+        return res.status(400)
+            .json({error: 'All fields are required'})
+    }
+
+    email = email.trim()
+    password = password.trim()
+
+    const isEmailValid = validator.isEmail(email)
+    if (!isEmailValid) {
+        return res.status(400)
+            .json({error: 'Invalid email format'})
+    }
+
+    try {
+        const db = await connectDB()
+
+        const user = await db.get(`
+            select * from users
+            where email = ?
+        `, [email])
+
+        if (!user) {
+            return res.status(400)
+                .json({error: 'Invalid credentials, please try again'})
+        }
+
+        const isPasswordValid = await bcrypt.compare(password, user.password)
+        if (!isPasswordValid) {
+            return res.status(400)
+                .json({error: 'Invalid credentials, please try again'})
+        }
+
+        req.session.userId = user.id
+
+        res.status(200)
+            .json({message: 'User logged in successfully'})
+
+    } catch(err) {
+        console.log(err)
+        return res.status(500)
+            .json({error: 'Internal server error'})
+    }
+
 }
 
 export const registerUser = async(req, res) => {

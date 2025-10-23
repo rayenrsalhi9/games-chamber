@@ -1,25 +1,34 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useActionState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 const Login = () => {
 
-  const [formData, setFormData] = useState({
-    email: '',
-    password: ''
-  })
+  const navigate = useNavigate()
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }))
-  }
+  const [error, handleLogin, isPending] = useActionState(
+    async(_prevState: string | null, formData: FormData): Promise<string | null> => {
+      const email = formData.get('email') as string
+      const password = formData.get('password') as string
+      
+      const response = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+      })
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    console.log('Login form submitted:', formData)
-  }
+      const result = await response.json()
+      
+      if (!response.ok) {
+        return result.error || 'Failed to log user in'
+      }
+      
+      navigate('/')
+      return null
+    }, 
+    null
+  )
 
   return (
     <div className="min-h-screen bg-black flex items-center justify-center px-4 py-8">
@@ -37,10 +46,11 @@ const Login = () => {
           <p className="text-purple-400 font-mono text-sm">
             WELCOME BACK
           </p>
+          {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
         </div>
         {/* Login Form */}
         <div className="retro-border bg-gray-900 p-8 rounded-lg">
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <form action={handleLogin} className="space-y-6">
                 {/* Email */}
                 <div>
                 <label htmlFor="email" className="block text-purple-300 font-mono text-sm mb-2">
@@ -50,12 +60,12 @@ const Login = () => {
                     type="email"
                     id="email"
                     name="email"
-                    value={formData.email}
-                    onChange={handleInputChange}
                     required
                     className="w-full px-4 py-3 bg-black text-white placeholder-purple-400 border border-purple-800 rounded focus:outline-none focus:border-purple-600 font-mono text-sm transition-colors duration-200"
-                    placeholder="Enter your email"
+                    placeholder="e.g. john.doe@example.com"
                     aria-label="Email"
+                    aria-required="true"
+                    aria-disabled={isPending}
                 />
                 </div>
                 {/* Password */}
@@ -67,17 +77,18 @@ const Login = () => {
                     type="password"
                     id="password"
                     name="password"
-                    value={formData.password}
-                    onChange={handleInputChange}
                     required
                     className="w-full px-4 py-3 bg-black text-white placeholder-purple-400 border border-purple-800 rounded focus:outline-none focus:border-purple-600 font-mono text-sm transition-colors duration-200"
-                    placeholder="Enter your password"
+                    placeholder="********"
                     aria-label="Password"
+                    aria-required="true"
+                    aria-disabled={isPending}
                 />
                 </div>
                 
                 <button
                     type="submit"
+                    disabled={isPending}
                     className="retro-button w-full py-3 text-base font-bold transition-all duration-200"
                 >
                     LOGIN
