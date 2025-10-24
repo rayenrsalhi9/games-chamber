@@ -1,4 +1,5 @@
 import placeholderImage from '/placeholder.svg'
+import { useCartCount } from '@/hooks/useCartCount'
 
 type Product = {
   id: number
@@ -17,6 +18,8 @@ type ProductProps = {
 
 const ProductCard = ({ product }: ProductProps) => {
 
+  const {setCartCount} = useCartCount()
+
   const addProductToCart = async(productId: number) => {
     try {
       const res = await fetch('/api/cart/add', {
@@ -28,6 +31,9 @@ const ProductCard = ({ product }: ProductProps) => {
       })
       const data = await res.json()
       if (data.error) throw new Error(data.message)
+      if (data.success) {
+        setCartCount(prev => prev + 1)
+      }
     } catch(err) {
       console.error('An error occured adding product: ', err)
     }

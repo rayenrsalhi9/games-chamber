@@ -12,7 +12,7 @@ type ResponsiveNavProps = {
 const ResponsiveNav = ({ search, handleSearchChange }: ResponsiveNavProps) => {
 
   const userName = useMe()
-  const cartCount = useCartCount()
+  const {cartCount} = useCartCount()
 
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
   const [isMobile, setIsMobile] = useState(false)

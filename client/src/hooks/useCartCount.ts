@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 
 export const useCartCount = () => {
-    const [cartCount, setCartCount] = useState<number | null>(null)
+    
+    const [cartCount, setCartCount] = useState(0)
 
     useEffect(() => {
         const getCartCount = async() => {
@@ -17,6 +18,6 @@ export const useCartCount = () => {
         getCartCount()
     }, [])
 
-    return cartCount
+    return {cartCount, setCartCount}
 
 }
