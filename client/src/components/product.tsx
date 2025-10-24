@@ -28,7 +28,7 @@ const ProductCard = ({ product, userId }: ProductProps) => {
         body: JSON.stringify({productId, userId})
       })
       const data = await res.json()
-      if (data.error) throw new Error(data.error)
+      if (data.error) throw new Error(data.message)
     } catch(err) {
       console.error('An error occured adding product: ', err)
     }
