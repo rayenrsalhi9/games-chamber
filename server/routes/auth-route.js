@@ -1,7 +1,8 @@
 import express from 'express'
-import { loginUser, registerUser } from '../controllers/auth-controller.js'
+import { loginUser, registerUser, logoutUser } from '../controllers/auth-controller.js'
 
 export const authRoute = express.Router()
 
 authRoute.post('/register', registerUser)
 authRoute.post('/login', loginUser)
+authRoute.post('/logout', logoutUser)

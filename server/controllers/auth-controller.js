@@ -2,7 +2,7 @@ import validator from 'validator'
 import bcrypt from 'bcryptjs'
 import {connectDB} from '../sql/connect-db.js'
 
-export const loginUser = async (req, res) => {
+export const loginUser = async(req, res) => {
     let {email, password} = req.body
 
     if (!email || !password) {
@@ -104,6 +104,16 @@ export const registerUser = async(req, res) => {
         res.status(201)
             .json({message: 'User registered successfully'})
 
+    } catch(err) {
+        console.log(err)
+        return res.status(500)
+            .json({error: 'Internal server error'})
+    }
+}
+
+export const logoutUser = async(req, res) => {
+    try {
+        req.session.destroy(() => res.json({success: true, message: 'User logged out successfully'}))
     } catch(err) {
         console.log(err)
         return res.status(500)

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { Menu, X, Gamepad2, ShoppingCart, User, Search } from 'lucide-react'
 
 type ResponsiveNavProps = {
@@ -13,6 +13,20 @@ const ResponsiveNav = ({ userName, search, handleSearchChange }: ResponsiveNavPr
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
   const location = useLocation()
+  const navigate = useNavigate()
+
+  const handleLogout = async () => {
+    try {
+      const res = await fetch('/api/auth/logout', {
+        method: 'POST',
+        credentials: 'include',
+      })
+      const data = await res.json()
+      if (data.success) navigate('/login?message=Logged out successfully')
+    } catch (err) {
+      console.log(err)
+    }
+  }
 
   // Check screen size
   useEffect(() => {
@@ -94,6 +108,18 @@ const ResponsiveNav = ({ userName, search, handleSearchChange }: ResponsiveNavPr
                 </Link>
               ) : null
             ))}
+
+            {/* Logout button */}
+            {
+              userName ? (
+                <button
+                  onClick={handleLogout}
+                  className="retro-button px-4 py-2 text-sm text-red-500 transition-all duration-200"
+                >
+                  Logout
+                </button>
+              ) : null
+            }
             
             {/* Search Bar */}
             <form role="search" className="flex items-center">

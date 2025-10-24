@@ -1,9 +1,11 @@
 import { useActionState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 
 const Login = () => {
 
   const navigate = useNavigate()
+  const [searchParams] = useSearchParams()
+  const message = searchParams.get('message') || ''
 
   const [error, handleLogin, isPending] = useActionState(
     async(_prevState: string | null, formData: FormData): Promise<string | null> => {
@@ -46,6 +48,7 @@ const Login = () => {
           <p className="text-purple-400 font-mono text-sm">
             WELCOME BACK
           </p>
+          {message && <p className="text-green-500 text-sm mt-2">{message}</p>}
           {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
         </div>
         {/* Login Form */}
