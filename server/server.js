@@ -2,6 +2,7 @@ import express from 'express'
 import { productsRoute } from './routes/products-route.js'
 import { authRoute } from './routes/auth-route.js'
 import { meRoute } from './routes/me-route.js'
+import { cartRoute } from './routes/cart-route.js'
 import session from 'express-session'
 import dotenv from 'dotenv'
 
@@ -33,9 +34,10 @@ app.use(session({
 app.use('/api/products', productsRoute)
 app.use('/api/auth/me', meRoute)
 app.use('/api/auth', authRoute)
+app.use('/api/cart', cartRoute)
 
 // Catch-all handler: send back React's index.html file for client-side routing
-app.get('/', (req, res) => {
+app.get('/', (_, res) => {
   res.sendFile(path.join(__dirname, '../client/dist/index.html'))
 })
 

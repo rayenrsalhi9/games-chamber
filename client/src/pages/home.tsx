@@ -23,13 +23,13 @@ const Home = () => {
 
   const genres = useGenres()
   const {products} = useProducts(genre, search)
-  const userName = useMe()
+  const user = useMe()
 
   return (
     <div className="min-h-screen bg-black text-white">
 
       <ResponsiveNav 
-        userName={userName}
+        userName={user?.name || ''}
         search={search} 
         handleSearchChange={handleSearchChange} 
       />
