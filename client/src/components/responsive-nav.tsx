@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
-import { Menu, X, Gamepad2, ShoppingCart, User, Search } from 'lucide-react'
+import { Menu, X, ShoppingCart, User, Search } from 'lucide-react'
 
 type ResponsiveNavProps = {
   userName: string | ''
@@ -69,7 +69,6 @@ const ResponsiveNav = ({ userName, search, handleSearchChange }: ResponsiveNavPr
   }, [isSidebarOpen])
 
   const navItems = [
-    { to: '/', label: 'HOME', icon: Gamepad2, show: true },
     { to: '/cart', label: 'CART', icon: ShoppingCart, show: true },
     { to: '/login', label: 'LOGIN', icon: User, show: !userName },
   ]
@@ -80,7 +79,7 @@ const ResponsiveNav = ({ userName, search, handleSearchChange }: ResponsiveNavPr
       <header className="w-full bg-black border-b border-purple-800 sticky top-0 z-40">
         <div className="flex justify-between items-center px-6 py-4">
           {/* Logo/Title Section */}
-          <div className="flex items-center space-x-4">
+          <Link to="/" className="flex items-center space-x-4">
             <div className="w-10 h-10 bg-purple-600 rounded flex items-center justify-center">
               <span className="font-pixel text-xs text-white">GC</span>
             </div>
@@ -90,7 +89,7 @@ const ResponsiveNav = ({ userName, search, handleSearchChange }: ResponsiveNavPr
               </h1>
               <p className="text-xs text-purple-400 font-mono">RETRO ARCADE</p>
             </div>
-          </div>
+          </Link>
 
           {/* Navigation */}
           <nav className="flex items-center space-x-4" aria-label="Main navigation">
@@ -111,7 +110,7 @@ const ResponsiveNav = ({ userName, search, handleSearchChange }: ResponsiveNavPr
               userName ? (
                 <button
                   onClick={handleLogout}
-                  className="retro-button px-4 py-2 text-sm text-red-500 transition-all duration-200"
+                  className="border-2 border-red-700 font-bold uppercase text-red-700 rounded cursor-pointer px-4 py-2 text-sm transition-all duration-400 hover:bg-red-700 hover:text-white"
                 >
                   Logout
                 </button>
