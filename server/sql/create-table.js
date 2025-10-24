@@ -34,4 +34,18 @@ const createUsersTable = async() => {
     console.log('Users table created successfully.')
 }
 
-createUsersTable()
+const createCartItemsTable = async() => {
+    const db = await connectDB()
+    db.exec(`
+        create table if not exists cart_items(
+            id integer primary key autoincrement,
+            user_id integer not null,
+            product_id integer not null,
+            quantity integer not null default 1,
+            foreign key (user_id) references users(id),
+            foreign key (product_id) references products(id)
+        )
+    `)
+    await db.close()
+    console.log('Cart items table created successfully.')
+}
