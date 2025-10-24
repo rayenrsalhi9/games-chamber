@@ -71,11 +71,6 @@ const ResponsiveNav = ({ search, handleSearchChange }: ResponsiveNavProps) => {
     }
   }, [isSidebarOpen])
 
-  const navItems = [
-    { to: '/cart', label: 'CART', icon: ShoppingCart, show: true },
-    { to: '/login', label: 'LOGIN', icon: User, show: !userName },
-  ]
-
   // Desktop Navigation
   if (!isMobile) {
     return (
@@ -96,17 +91,24 @@ const ResponsiveNav = ({ search, handleSearchChange }: ResponsiveNavProps) => {
 
           {/* Navigation */}
           <nav className="flex items-center space-x-4" aria-label="Main navigation">
-            {navItems.map((item) => (
-              item.show ? (
-                <Link
-                  key={item.to}
-                  to={item.to}
+            {
+              userName ?
+              <Link
+                to='/cart'
+                className="retro-button px-4 py-2 text-sm desktop-nav-link transition-all duration-200 relative"
+              >
+                <ShoppingCart className="w-5 h-5" />
+                <span className="absolute -top-1 -right-1 bg-red-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold">
+                  4
+                </span>
+              </Link>
+              : <Link
+                  to='/login'
                   className="retro-button px-4 py-2 text-sm desktop-nav-link transition-all duration-200"
                 >
-                  {item.to === '/cart' ? <ShoppingCart className="w-5 h-5" /> : item.label}
+                  LOGIN
                 </Link>
-              ) : null
-            ))}
+            }
 
             {/* Logout button */}
             {
@@ -132,7 +134,7 @@ const ResponsiveNav = ({ search, handleSearchChange }: ResponsiveNavProps) => {
                   value={search}
                   onChange={handleSearchChange}
                   placeholder="Search games..."
-                  className="pl-10 pr-4 py-2 bg-black text-white placeholder-purple-400 border border-purple-800 rounded focus:outline-none focus:border-purple-600 font-mono text-sm w-40 focus:w-48 transition-all duration-200 desktop-search-focus"
+                  className="pl-10 pr-4 py-2 min-w-48 bg-black text-white placeholder-purple-400 border border-purple-800 rounded focus:outline-none focus:border-purple-600 font-mono text-sm w-40 transition-all duration-200 desktop-search-focus"
                 />
               </div>
             </form>
@@ -275,27 +277,32 @@ const ResponsiveNav = ({ search, handleSearchChange }: ResponsiveNavProps) => {
 
           {/* Navigation Items */}
           <nav className="space-y-2" aria-label="Mobile navigation">
-            {navItems.map((item) => {
-              const Icon = item.icon
-              const isActive = location.pathname === item.to
-              return (
-                item.show ? (
-                  <Link
-                    key={item.to}
-                    to={item.to}
-                    className={`flex items-center space-x-3 px-4 py-3 rounded-md font-mono text-sm transition-colors duration-200 mobile-nav-item ${
-                      isActive
-                        ? 'bg-purple-600 text-white'
-                        : 'text-purple-300 hover:bg-purple-800 hover:text-white'
-                    }`}
-                    onClick={() => setIsSidebarOpen(false)}
-                  >
-                    <Icon className="w-5 h-5" />
-                    <span>{item.label}</span>
-                  </Link>
-                ) : null
-              )
-            })}
+            {
+              userName ?
+              <Link
+                    
+                to='/cart'
+                className={`flex items-center space-x-3 px-4 py-3 border-2 rounded-md font-mono text-sm transition-colors duration-200 mobile-nav-item ${
+                  location.pathname === '/cart'
+                    ? 'bg-purple-600 text-white'
+                    : 'text-purple-300 hover:bg-purple-800 hover:text-white'
+                }`}
+                onClick={() => setIsSidebarOpen(false)}
+              >
+                <ShoppingCart className="w-5 h-5" />
+              </Link>
+              : <Link
+                to='/login'
+                className={`flex items-center space-x-3 px-4 py-3 rounded-md font-mono text-sm transition-colors duration-200 mobile-nav-item ${
+                  location.pathname === '/login'
+                    ? 'bg-purple-600 text-white'
+                    : 'text-purple-300 hover:bg-purple-800 hover:text-white'
+                }`}
+                onClick={() => setIsSidebarOpen(false)}
+              >
+                LOGIN
+              </Link>
+            }
           </nav>
 
           {/* Additional Sidebar Content */}
