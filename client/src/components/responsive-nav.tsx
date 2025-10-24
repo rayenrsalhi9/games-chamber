@@ -12,6 +12,7 @@ const ResponsiveNav = ({ userName, search, handleSearchChange }: ResponsiveNavPr
 
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
+  
   const location = useLocation()
   const navigate = useNavigate()
 

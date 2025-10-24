@@ -1,12 +1,7 @@
 import { useState, useEffect } from "react"
 
-export type User = {
-    name: string
-    id: number
-}
-
 export const useMe = () => {
-    const [user, setUser] = useState<User | null >(null)
+    const [userName, setUserName] = useState<string | '' >('')
 
     useEffect(() => {
         const fetchUser = async () => {
@@ -14,7 +9,7 @@ export const useMe = () => {
                 const res = await fetch('/api/auth/me')
                 const data = await res.json()
                 if (data.error) throw new Error(data.error)
-                if (data.success) setUser({ name: data.name, id: data.id })
+                if (data.success) setUserName(data.name)
             } catch (error) {
                 console.error('Error fetching user details:', error)
             }
@@ -22,5 +17,5 @@ export const useMe = () => {
         fetchUser()
     }, [])
 
-    return user
+    return userName
 }

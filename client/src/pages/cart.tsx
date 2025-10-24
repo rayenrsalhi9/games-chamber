@@ -6,7 +6,7 @@ const Cart = () => {
   
   const [searchParams, setSearchParams] = useSearchParams()
   const search = searchParams.get('search') || ''
-  const user = useMe()
+  const userName = useMe()
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchParams({search:e.target.value})
@@ -15,7 +15,7 @@ const Cart = () => {
   return (
     <div className="min-h-screen bg-black text-white">
       <ResponsiveNav 
-        userName={user?.name || ''}
+        userName={userName}
         search={search} 
         handleSearchChange={handleSearchChange} 
       />

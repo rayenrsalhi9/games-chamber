@@ -23,13 +23,13 @@ const Home = () => {
 
   const genres = useGenres()
   const {products} = useProducts(genre, search)
-  const user = useMe()
+  const userName = useMe()
 
   return (
     <div className="min-h-screen bg-black text-white">
 
       <ResponsiveNav 
-        userName={user?.name || ''}
+        userName={userName}
         search={search} 
         handleSearchChange={handleSearchChange} 
       />
@@ -82,7 +82,7 @@ const Home = () => {
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {products.map((product) => (
-                <ProductCard key={product.id} product={product} userId={user?.id} />
+                <ProductCard key={product.id} product={product} />
               ))}
             </div>
           )}

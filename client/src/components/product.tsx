@@ -13,10 +13,9 @@ type Product = {
 
 type ProductProps = {
   product: Product
-  userId: number | undefined
 }
 
-const ProductCard = ({ product, userId }: ProductProps) => {
+const ProductCard = ({ product }: ProductProps) => {
 
   const addProductToCart = async(productId: number) => {
     try {
@@ -25,7 +24,7 @@ const ProductCard = ({ product, userId }: ProductProps) => {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({productId, userId})
+        body: JSON.stringify({productId})
       })
       const data = await res.json()
       if (data.error) throw new Error(data.message)
