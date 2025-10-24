@@ -17,10 +17,7 @@ const ResponsiveNav = ({ userName, search, handleSearchChange }: ResponsiveNavPr
 
   const handleLogout = async () => {
     try {
-      const res = await fetch('/api/auth/logout', {
-        method: 'POST',
-        credentials: 'include',
-      })
+      const res = await fetch('/api/auth/logout')
       const data = await res.json()
       if (data.success) navigate('/login?message=Logged out successfully')
     } catch (err) {

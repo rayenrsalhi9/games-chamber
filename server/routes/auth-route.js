@@ -5,4 +5,4 @@ export const authRoute = express.Router()
 
 authRoute.post('/register', registerUser)
 authRoute.post('/login', loginUser)
-authRoute.post('/logout', logoutUser)
+authRoute.get('/logout', logoutUser)
