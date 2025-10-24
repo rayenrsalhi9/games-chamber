@@ -3,4 +3,4 @@ import { addToCart } from '../controllers/cart-controller.js'
 
 export const cartRoute = express.Router()
 
-cartRoute.use('/add', addToCart)
+cartRoute.post('/add', addToCart)
