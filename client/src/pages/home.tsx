@@ -1,8 +1,7 @@
+import icon from '/icon.png'
 import { useSearchParams } from 'react-router-dom'
 import { useGenres } from '@/hooks/useGenres'
 import { useProducts } from '@/hooks/useProducts'
-import { useMe } from '@/hooks/useMe'
-import icon from '/icon.png'
 import ResponsiveNav from '@/components/responsive-nav'
 import Footer from '@/components/footer'
 import ProductCard from '@/components/product'
@@ -23,16 +22,11 @@ const Home = () => {
 
   const genres = useGenres()
   const {products} = useProducts(genre, search)
-  const userName = useMe()
 
   return (
     <div className="min-h-screen bg-black text-white">
-
-      <ResponsiveNav 
-        userName={userName}
-        search={search} 
-        handleSearchChange={handleSearchChange} 
-      />
+      
+      <ResponsiveNav search={search} handleSearchChange={handleSearchChange} />
       
       <main className="flex items-center justify-center gap-10 pt-20 pb-10 px-6">
         

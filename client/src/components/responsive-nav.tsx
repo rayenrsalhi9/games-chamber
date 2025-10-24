@@ -1,14 +1,16 @@
 import { useState, useEffect } from 'react'
+import { useMe } from '@/hooks/useMe'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { Menu, X, ShoppingCart, User, Search } from 'lucide-react'
 
 type ResponsiveNavProps = {
-  userName: string | ''
   search: string
   handleSearchChange: (e: React.ChangeEvent<HTMLInputElement>) => void
 }
 
-const ResponsiveNav = ({ userName, search, handleSearchChange }: ResponsiveNavProps) => {
+const ResponsiveNav = ({ search, handleSearchChange }: ResponsiveNavProps) => {
+
+  const userName = useMe()
 
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
