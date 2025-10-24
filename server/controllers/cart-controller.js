@@ -32,3 +32,25 @@ export const addToCart = async(req, res) => {
             .json({error: true, message: 'Could not add product to cart'})
     }
 }
+
+export const getCartCount = async(req, res) => {
+
+    const userId = req.session.userId
+    if (!userId) return res.status(400).json({error: true, message: 'User not logged in'})
+
+    try {
+        const db = await connectDB()
+
+        const data = await db.get(`
+            SELECT SUM(quantity) AS count
+            FROM cart_items
+            WHERE user_id = ?
+        `, [userId])
+
+        res.json({success: true, count: data.count || 0})
+
+    } catch(err) {
+        res.status(500)
+            .json({error: 'Could not get data about your cart'})
+    }
+}

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useMe } from '@/hooks/useMe'
+import { useCartCount } from '@/hooks/useCartCount'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { Menu, X, ShoppingCart, User, Search } from 'lucide-react'
 
@@ -11,6 +12,7 @@ type ResponsiveNavProps = {
 const ResponsiveNav = ({ search, handleSearchChange }: ResponsiveNavProps) => {
 
   const userName = useMe()
+  const cartCount = useCartCount()
 
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
@@ -98,9 +100,13 @@ const ResponsiveNav = ({ search, handleSearchChange }: ResponsiveNavProps) => {
                 className="retro-button px-4 py-2 text-sm desktop-nav-link transition-all duration-200 relative"
               >
                 <ShoppingCart className="w-5 h-5" />
-                <span className="absolute -top-1 -right-1 bg-red-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold">
-                  4
-                </span>
+                {
+                  cartCount ?
+                  <span className="absolute -top-1 -right-1 bg-red-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold">
+                    {cartCount}
+                  </span>
+                  : null
+                }
               </Link>
               : <Link
                   to='/login'
