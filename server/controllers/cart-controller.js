@@ -10,9 +10,23 @@ export const addToCart = async(req, res) => {
 
     try {
         const db = await connectDB()
-        await db.run('INSERT INTO cart_items (user_id, product_id) VALUES (?, ?)', [userId, productId])
-        res.status(200)
-            .json({success: true, message: 'Product added to cart'})
+
+        const doesProductExist = await db.get(
+            'SELECT * FROM cart_items WHERE product_id = ?', 
+            [productId]
+        )
+
+        if (doesProductExist) {
+            await db.run(
+                'UPDATE cart_items SET quantity = quantity + 1 WHERE product_id = ?',
+                [productId]
+            )
+        } else {
+            await db.run('INSERT INTO cart_items (user_id, product_id) VALUES (?, ?)', [userId, productId])
+        }
+
+        res.status(200).json({success: true, message: 'Product added to cart'})
+
     } catch (error) {
         res.status(500)
             .json({error: true, message: 'Could not add product to cart'})
