@@ -112,11 +112,7 @@ export const registerUser = async(req, res) => {
 }
 
 export const logoutUser = async(req, res) => {
-    try {
-        req.session.destroy(() => res.json({success: true, message: 'User logged out successfully'}))
-    } catch(err) {
-        console.log(err)
-        return res.status(500)
-            .json({error: 'Internal server error'})
-    }
+    req.session.destroy(
+        () => res.json({success: true, message: 'User logged out successfully'})
+    )
 }
